@@ -5,39 +5,36 @@ import speedtest
 import sys
 
 
-def test_speed():
-	sptest = speedtest.Speedtest()
-	date = datetime.datetime.now().strftime("%d.%m.%Y")
-	time = datetime.datetime.now().strftime("%H:%M")
-
-	sptest.get_best_server()
-
-	server = sptest.results.server
-	ping = round(sptest.results.ping, 1) # ms
-	download = round(sptest.download() / 1000 / 1000) # Mbit/s
-	upload = round(sptest.upload() / 1000 / 1000) # Mbit/s
+sptest = speedtest.Speedtest()
 	
-	return date, time, server["name"], server["sponsor"], ping, download, upload
+def Get_Server() -> dict:
+	return sptest.get_best_server() # as dictionary, include ping
 
-def excel_save():
+def Test_Speed() -> dict:
+	down = round(sptest.download() / 1000 / 1000) # Mbit/s
+	up = round(sptest.upload() / 1000 / 1000) # Mbit/s
+
+	return {"download": down,
+			"upload": up,
+			} # as dictionary in Mbit/s
+
+def Excel_Save():
 	raise NotImplementedError("Save function not implemented yet")
 
-def show_speed():
-	speed_result = test_speed()
-	print("Pvm:", speed_result[0] + " " + speed_result[1])
-	print("Server:", speed_result[2] + ", " + speed_result[3])
-	print("Ping:", speed_result[4], "ms")
-	print("Download:", speed_result[5], "Mbit/s")
-	print("Upload:", speed_result[6], "Mbit/s")
+def Show_Speed():
+	raise NotImplementedError("Broken")
 
+
+Get_Server()
+print(Test_Speed())
 
 argv = sys.argv
 
 if "--show" in argv:
-	show_speed()
+	Show_Speed()
 	sys.exit()
 
-# excel_save()
+# Excel_Save()
 
 
 """
