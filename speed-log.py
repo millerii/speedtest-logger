@@ -6,9 +6,10 @@ import sys
 
 
 sptest = speedtest.Speedtest()
-	
+now = datetime.datetime.now()
+
 def Get_Server() -> dict:
-	return sptest.get_best_server() # as dictionary, include ping
+	return sptest.get_best_server() # as dictionary
 
 def Test_Speed() -> dict:
 	down = round(sptest.download() / 1000 / 1000) # Mbit/s
@@ -22,7 +23,13 @@ def Excel_Save():
 	raise NotImplementedError("Save function not implemented yet")
 
 def Show_Speed():
-	raise NotImplementedError("Broken")
+	server = Get_Server()
+	speed_result = Test_Speed()
+	print("Pvm:", now.strftime("%d.%m.%Y %H:%M"))
+	print("Server:", server['country'] + ", " + server['sponsor'])
+	print("Ping:", round(server['latency']), "ms")
+	print("Download:", speed_result['download'], "Mbit/s")
+	print("Upload:", speed_result['upload'], "Mbit/s")
 
 
 Get_Server()
@@ -41,7 +48,7 @@ if "--show" in argv:
 pvm, klo, sponsor, name, ping, download, upload, Mbit/s
 Tallenna klo/pvm
 Hae serveri
-Testaa ping
+Ping sisältyy serveriin
 Testaa nopeus
 
 Tallenna tiedot
