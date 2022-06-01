@@ -7,6 +7,7 @@ import os
 import openpyxl
 from openpyxl.styles import Alignment
 
+
 sptest = speedtest.Speedtest()
 date_now = datetime.datetime.now()
 
@@ -27,7 +28,7 @@ def Excel_Save():
 	speed_result = Test_Speed()
 
 	# Create initial excel file, if not exist
-	path = os.path.dirname(__file__)+"\\"
+	path = os.path.dirname(os.path.abspath(__file__))+"\\"
 	excel_file = path + "speed_history.xlsx"
 
 	if not os.path.isfile(excel_file):
