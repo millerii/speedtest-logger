@@ -27,10 +27,10 @@ def Excel_Save():
 	server = Get_Server()
 	speed_result = Test_Speed()
 
-	# Create initial excel file, if not exist
-	path = os.path.dirname(os.path.abspath(__file__))+"\\"
-	excel_file = path + "speed_history.xlsx"
+	path = os.path.dirname(os.path.abspath(__file__))
+	excel_file = os.path.join(path, "speed_history.xlsx")
 
+	# Create initial excel file, if not exist
 	if not os.path.isfile(excel_file):
 		wb = openpyxl.Workbook() # One time excel-file initializing
 		ws_data = wb.active
@@ -76,6 +76,7 @@ def Excel_Save():
 			print(e)
 
 def Show_Speed():
+	print("Testing speed...")
 	server = Get_Server()
 	speed_result = Test_Speed()
 	print("Pvm:", date_now.strftime("%d.%m.%Y %H:%M"))
@@ -92,8 +93,3 @@ if "--show" in argv:
 	sys.exit()
 
 Excel_Save()
-
-
-"""
-arg "-v" tallentaa ja tulostaa myös tulokset näytölle
-"""
